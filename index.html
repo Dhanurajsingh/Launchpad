@@ -36,7 +36,7 @@
   }
   .wrap{width:100%;max-width:540px;}
 
-  header{margin-bottom:44px;text-align:center;}
+  header{margin-bottom:28px;text-align:center;position:relative;}
   .eyebrow{
     font-size:11px;
     letter-spacing:.24em;
@@ -54,7 +54,113 @@
     color:#f5f3ec;
   }
 
+  .layout-toggle{
+    position:relative;
+    display:inline-flex;
+    justify-content:center;
+    gap:2px;
+    margin:20px auto 0;
+    padding:3px;
+    border-radius:22px;
+    background:var(--glass);
+    border:1px solid var(--glass-border);
+  }
+  .toggle-btn{
+    position:relative;
+    z-index:1;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    padding:7px 16px;
+    border-radius:18px;
+    background:transparent;
+    border:none;
+    color:var(--muted);
+    font-size:12px;
+    font-weight:600;
+    cursor:pointer;
+    transition: color .25s ease;
+  }
+  .toggle-btn svg{width:14px;height:14px;}
+  .toggle-btn:hover{color:var(--ink);}
+  .toggle-btn.active{color:#14150f;}
+  .toggle-pill{
+    position:absolute;
+    top:3px;
+    bottom:3px;
+    left:3px;
+    width:calc(50% - 3px);
+    border-radius:18px;
+    background:#f5f3ec;
+    box-shadow:0 2px 10px -2px rgba(0,0,0,0.4);
+    transition: transform .3s cubic-bezier(.4,0,.2,1);
+  }
+  .layout-toggle.grid-active .toggle-pill{transform:translateX(100%);}
+
   .cards{display:flex;flex-direction:column;gap:16px;}
+  .cards a.card{
+    animation: cardIn .35s ease backwards;
+  }
+  .cards a.card:nth-child(1){animation-delay:.02s;}
+  .cards a.card:nth-child(2){animation-delay:.06s;}
+  .cards a.card:nth-child(3){animation-delay:.1s;}
+  .cards a.card:nth-child(4){animation-delay:.14s;}
+  @keyframes cardIn{
+    from{opacity:0; transform:translateY(8px) scale(.98);}
+    to{opacity:1; transform:translateY(0) scale(1);}
+  }
+
+  .cards.grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+  }
+  .cards.grid a.card{
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    aspect-ratio:1/1;
+    height:100%;
+    padding:18px 14px;
+    gap:10px;
+    border-left:none;
+    border-top:3px solid transparent;
+    position:relative;
+    overflow:hidden;
+  }
+  .cards.grid .text{
+    flex:none;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .cards.grid a.card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    opacity:0;
+    transition:opacity .25s ease;
+    pointer-events:none;
+  }
+  .cards.grid a.card:hover::before{opacity:1;}
+  .cards.grid .card1{border-top-color:var(--gold);}
+  .cards.grid .card1::before{background:radial-gradient(circle at 50% 0%, rgba(232,182,74,0.10), transparent 70%);}
+  .cards.grid .card2{border-top-color:var(--teal);}
+  .cards.grid .card2::before{background:radial-gradient(circle at 50% 0%, rgba(79,209,184,0.10), transparent 70%);}
+  .cards.grid .card3{border-top-color:var(--coral);}
+  .cards.grid .card3::before{background:radial-gradient(circle at 50% 0%, rgba(255,138,99,0.10), transparent 70%);}
+  .cards.grid .card4{border-top-color:#b48cff;}
+  .cards.grid .card4::before{background:radial-gradient(circle at 50% 0%, rgba(180,140,255,0.10), transparent 70%);}
+  .cards.grid a.card:hover{transform:translateY(-4px) scale(1.02);}
+  .cards.grid .icon{
+    width:52px;
+    height:52px;
+  }
+  .cards.grid .icon svg{width:26px;height:26px;}
+  .cards.grid .name{font-size:14.5px;}
+  .cards.grid .desc{font-size:11px; line-height:1.4;}
+  .cards.grid .arrow{display:none;}
 
   a.card{
     position:relative;
@@ -155,9 +261,20 @@
   <header>
     <p class="eyebrow">Your Apps</p>
     <h1>Launchpad</h1>
+    <div class="layout-toggle grid-active" id="layoutToggle">
+      <div class="toggle-pill"></div>
+      <button class="toggle-btn" id="listBtn" onclick="setLayout('list')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        List
+      </button>
+      <button class="toggle-btn active" id="gridBtn" onclick="setLayout('grid')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Box
+      </button>
+    </div>
   </header>
 
-  <div class="cards">
+  <div class="cards grid" id="cardsWrap">
     <a class="card card1" href="https://shauryasinghmanager-gif.github.io/Money-manager/" target="_blank" rel="noopener noreferrer">
       <div class="icon icon1">
         <svg viewBox="0 0 24 24" fill="none" stroke="#e8b64a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -237,5 +354,40 @@
 
   <footer>Tap any card to open</footer>
 </div>
+
+<script>
+  function setLayout(mode){
+    var wrap = document.getElementById('cardsWrap');
+    var toggle = document.getElementById('layoutToggle');
+    var listBtn = document.getElementById('listBtn');
+    var gridBtn = document.getElementById('gridBtn');
+    var cards = wrap.querySelectorAll('a.card');
+
+    cards.forEach(function(c){
+      c.style.animation = 'none';
+      void c.offsetWidth;
+      c.style.animation = '';
+    });
+
+    if(mode === 'grid'){
+      wrap.classList.add('grid');
+      toggle.classList.add('grid-active');
+      gridBtn.classList.add('active');
+      listBtn.classList.remove('active');
+    } else {
+      wrap.classList.remove('grid');
+      toggle.classList.remove('grid-active');
+      listBtn.classList.add('active');
+      gridBtn.classList.remove('active');
+    }
+    try{ localStorage.setItem('launchpad-layout', mode); }catch(e){}
+  }
+  (function(){
+    var saved;
+    try{ saved = localStorage.getItem('launchpad-layout'); }catch(e){}
+    if(saved === 'list') setLayout('list');
+    else setLayout('grid');
+  })();
+</script>
 </body>
 </html>
