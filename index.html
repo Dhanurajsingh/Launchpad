@@ -106,64 +106,11 @@
   .cards a.card:nth-child(3){animation-delay:.1s;}
   .cards a.card:nth-child(4){animation-delay:.14s;}
   .cards a.card:nth-child(5){animation-delay:.18s;}
+  .cards a.card:nth-child(6){animation-delay:.22s;}
   @keyframes cardIn{
     from{opacity:0; transform:translateY(8px) scale(.98);}
     to{opacity:1; transform:translateY(0) scale(1);}
   }
-
-  .cards.grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:14px;
-  }
-  .cards.grid a.card{
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    aspect-ratio:1/1;
-    height:100%;
-    padding:18px 14px;
-    gap:10px;
-    border-left:none;
-    border-top:3px solid transparent;
-    position:relative;
-    overflow:hidden;
-  }
-  .cards.grid .text{
-    flex:none;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-  }
-  .cards.grid a.card::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    opacity:0;
-    transition:opacity .25s ease;
-    pointer-events:none;
-  }
-  .cards.grid a.card:hover::before{opacity:1;}
-  .cards.grid .card1{border-top-color:var(--gold);}
-  .cards.grid .card1::before{background:radial-gradient(circle at 50% 0%, rgba(232,182,74,0.10), transparent 70%);}
-  .cards.grid .card2{border-top-color:var(--teal);}
-  .cards.grid .card2::before{background:radial-gradient(circle at 50% 0%, rgba(79,209,184,0.10), transparent 70%);}
-  .cards.grid .card3{border-top-color:var(--coral);}
-  .cards.grid .card3::before{background:radial-gradient(circle at 50% 0%, rgba(255,138,99,0.10), transparent 70%);}
-  .cards.grid .card4{border-top-color:#b48cff;}
-  .cards.grid .card4::before{background:radial-gradient(circle at 50% 0%, rgba(180,140,255,0.10), transparent 70%);}
-  .cards.grid .card5{border-top-color:#5fa8ff;}
-  .cards.grid .card5::before{background:radial-gradient(circle at 50% 0%, rgba(95,168,255,0.10), transparent 70%);}
-  .cards.grid a.card:hover{transform:translateY(-4px) scale(1.02);}
-  .cards.grid .icon{
-    width:52px;
-    height:52px;
-  }
-  .cards.grid .icon svg{width:26px;height:26px;}
-  .cards.grid .name{font-size:14.5px;}
-  .cards.grid .desc{font-size:11px; line-height:1.4;}
-  .cards.grid .arrow{display:none;}
 
   a.card{
     position:relative;
@@ -192,6 +139,7 @@
   .card3{border-left:3px solid var(--coral);}
   .card4{border-left:3px solid #b48cff;}
   .card5{border-left:3px solid #5fa8ff;}
+  .card6{border-left:3px solid #ff6fa5;}
 
   .icon{
     flex-shrink:0;
@@ -207,6 +155,7 @@
   .icon3{background:rgba(255,138,99,0.14); box-shadow:0 0 22px -4px rgba(255,138,99,0.35);}
   .icon4{background:rgba(180,140,255,0.14); box-shadow:0 0 22px -4px rgba(180,140,255,0.35);}
   .icon5{background:rgba(95,168,255,0.14); box-shadow:0 0 22px -4px rgba(95,168,255,0.35);}
+  .icon6{background:rgba(255,111,165,0.14); box-shadow:0 0 22px -4px rgba(255,111,165,0.35);}
   .icon svg{width:22px;height:22px;}
 
   .text{flex:1;min-width:0;}
@@ -237,6 +186,57 @@
   }
   a.card:hover .arrow{transform: translateX(3px);}
   .arrow svg{width:13px;height:13px;}
+
+  .cards.grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+  }
+  .cards.grid a.card{
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    aspect-ratio:1/1;
+    height:100%;
+    padding:18px 14px;
+    gap:10px;
+    border-left:none;
+    border-top:3px solid transparent;
+    position:relative;
+    overflow:hidden;
+  }
+  .cards.grid a.card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    opacity:0;
+    transition:opacity .25s ease;
+    pointer-events:none;
+  }
+  .cards.grid a.card:hover::before{opacity:1;}
+  .cards.grid .card1{border-top-color:var(--gold);}
+  .cards.grid .card1::before{background:radial-gradient(circle at 50% 0%, rgba(232,182,74,0.10), transparent 70%);}
+  .cards.grid .card2{border-top-color:var(--teal);}
+  .cards.grid .card2::before{background:radial-gradient(circle at 50% 0%, rgba(79,209,184,0.10), transparent 70%);}
+  .cards.grid .card3{border-top-color:var(--coral);}
+  .cards.grid .card3::before{background:radial-gradient(circle at 50% 0%, rgba(255,138,99,0.10), transparent 70%);}
+  .cards.grid .card4{border-top-color:#b48cff;}
+  .cards.grid .card4::before{background:radial-gradient(circle at 50% 0%, rgba(180,140,255,0.10), transparent 70%);}
+  .cards.grid .card5{border-top-color:#5fa8ff;}
+  .cards.grid .card5::before{background:radial-gradient(circle at 50% 0%, rgba(95,168,255,0.10), transparent 70%);}
+  .cards.grid .card6{border-top-color:#ff6fa5;}
+  .cards.grid .card6::before{background:radial-gradient(circle at 50% 0%, rgba(255,111,165,0.10), transparent 70%);}
+  .cards.grid a.card:hover{transform:translateY(-4px) scale(1.02);}
+  .cards.grid .icon{
+    width:52px;
+    height:52px;
+  }
+  .cards.grid .icon svg{width:26px;height:26px;}
+  .cards.grid .text{flex:none; display:flex; flex-direction:column; align-items:center;}
+  .cards.grid .name{font-size:14.5px;}
+  .cards.grid .desc{font-size:11px; line-height:1.4;}
+  .cards.grid .arrow{display:none;}
 
   footer{
     text-align:center;
@@ -355,6 +355,7 @@
         </svg>
       </div>
     </a>
+
     <a class="card card5" href="https://shauryasinghmanager-gif.github.io/Expense-Tracker/" target="_blank" rel="noopener noreferrer">
       <div class="icon icon5">
         <svg viewBox="0 0 24 24" fill="none" stroke="#5fa8ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -366,6 +367,25 @@
       <div class="text">
         <p class="name">Expense Tracker</p>
         <p class="desc">Log & review daily expenses</p>
+      </div>
+      <div class="arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#e8e6df" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 17L17 7M9 7h8v8"/>
+        </svg>
+      </div>
+    </a>
+    <a class="card card6" href="https://shauryasinghmanager-gif.github.io/gaadii/" target="_blank" rel="noopener noreferrer">
+      <div class="icon icon6">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ff6fa5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 16l1.5-5.5A2 2 0 0 1 7.4 9h9.2a2 2 0 0 1 1.9 1.5L20 16"/>
+          <path d="M4 16h16v3H4z"/>
+          <circle cx="7.5" cy="19" r="1.3"/>
+          <circle cx="16.5" cy="19" r="1.3"/>
+        </svg>
+      </div>
+      <div class="text">
+        <p class="name">Gaadii</p>
+        <p class="desc">Vehicle tracker</p>
       </div>
       <div class="arrow">
         <svg viewBox="0 0 24 24" fill="none" stroke="#e8e6df" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
